@@ -21,6 +21,10 @@ fetch(galleryUrl)
         galleryInfo[4].innerHTML = `<b>Country:</b> ${data.GalleryCountry}`;
         galleryInfo[5].innerHTML = `<b>Website:</b> <a href="${data.GalleryWebSite}">${data.GalleryWebSite}</a>`;
         initMap(data.Longitude, data.Latitude);
+        document.querySelector(".painting-content").innerHTML = "";
+        fetchPainting(
+          `https://www.randyconnolly.com/funwebdev/3rd/api/art/paintings.php?gallery=${data.GalleryID}`
+        );
       });
       galleryName.className = "gallery-name";
       galleryName.innerText = gallery.GalleryName;
@@ -36,3 +40,27 @@ function initMap(a, b) {
     zoom: 15,
   });
 }
+
+let paintingContainer = document.querySelector(".painting-content");
+const fetchPainting = (galleryId) => {
+  fetch(galleryId)
+    .then((response) => response.json())
+    .then(function (paintings) {
+      paintings.map((painting) => {
+        const imgLink = `https://res.cloudinary.com/funwebdev/image/upload/w_100/art/paintings/${painting.ImageFileName}`;
+
+        const paintingDetails = `<div class='painting-details'>
+  <div class='artist-img'>
+    <img
+      src= ${imgLink}
+      alt=''
+    />
+  </div>
+  <div class='artist-name'>${painting.FirstName} ${painting.LastName}</div>
+  <div class='artist-title'>${painting.Title}</div>
+  <div class='artist-year'>${painting.YearOfWork}</div>
+</div>`;
+        paintingContainer.innerHTML += paintingDetails;
+      });
+    });
+};

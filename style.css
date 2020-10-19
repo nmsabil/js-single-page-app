@@ -26,7 +26,7 @@
     "header header header header"
     "List-of-gallery gallery-info paintings paintings"
     "List-of-gallery map paintings paintings";
-  height: 95vh;
+  height: 98vh;
   margin-bottom: 10px;
 }
 .list-of-gallery {
@@ -36,10 +36,17 @@
   background-color: var(--main-bg-color);
 }
 
-.list-of-gallery > h2 {
+.list-of-gallery > h2,
+.map > h2,
+.paintings > h2 {
   text-align: center;
   padding: 5px;
 }
+.map > h2,
+.paintings > h2 {
+  border-bottom: 1px solid black;
+}
+
 .gallery-info {
   grid-area: gallery-info;
   background-color: var(--main-bg-color);
@@ -47,9 +54,15 @@
 .gallery-info * {
   padding: 5px;
   text-align: center;
+  font-size: larger;
 }
 .gallery-info .galleryWebsite {
   padding-bottom: 10px;
+}
+.gallery-info h2 {
+  font-size: 25px;
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
 }
 
 .gallery-info a {
@@ -84,6 +97,52 @@
 }
 .gallery-name:hover {
   background-color: var(--main-color);
+}
+
+.painting-header {
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+  font-size: large;
+  font-weight: 600;
+  text-align: center;
+  padding-bottom: 5px;
+}
+.painting-header {
+  margin-left: 40px;
+  text-align: center;
+}
+.artist-img > img {
+  width: 60px;
+  height: 60px;
+  margin-left: 20px;
+  border-radius: 3px;
+  border: 1px solid white;
+}
+.painting-details * {
+  text-align: center;
+  font-size: 12px;
+  padding: 5px;
+}
+.painting-content {
+  padding: 20px;
+}
+.paintings {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+.painting-details {
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid var(--main-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 20px;
+  background-color: var(--main-secondary-color);
+  color: #f1f1f1;
+  font-weight: 600;
 }
 
 /* Reference | custom scrollbar styles 
