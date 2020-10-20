@@ -145,6 +145,23 @@ const fetchPaintingDetails = (
     singlePainting.innerHTML = "";
     singlePainting.classList.add("d-none");
   });
+  const singlePainting = document.querySelector(".single-painting-view");
+
+  const largerImageDisplay = (e) => {
+    largeImage.querySelector("img").src = e.target.src.replace(/500/g, "1000");
+    largeImage.classList.remove("limage-d-none");
+    singlePainting.classList.add("d-none");
+  };
+  const closeLargeScreen = () => {
+    largeImage.classList.add("limage-d-none");
+    singlePainting.classList.remove("d-none");
+  };
+  const largeImage = document.querySelector(".large-image");
+  largeImage.addEventListener("click", closeLargeScreen);
+
+  document
+    .querySelector(".image")
+    .addEventListener("click", largerImageDisplay);
 };
 document.querySelector(".artist").addEventListener("click", sorting);
 document.querySelector(".title").addEventListener("click", sorting);

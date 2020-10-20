@@ -149,7 +149,7 @@
 }
 
 .single-painting-view {
-  z-index: 999999;
+  z-index: 99;
   display: flex;
   top: 50%;
   left: 50%;
@@ -184,6 +184,7 @@
   object-fit: contain;
   width: 100%;
   padding: 20px;
+  cursor: pointer;
 }
 .single-painting-view .description {
   margin-top: 10px;
@@ -206,6 +207,25 @@
 }
 .close-button:hover {
   background-color: var(--main-color);
+}
+
+.limage-d-none {
+  display: none;
+  visibility: hidden;
+}
+.large-image {
+  z-index: 100;
+  width: 100%;
+  position: absolute;
+  height: 98vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.large-image img {
+  object-fit: contain;
+  cursor: pointer;
+  height: 100%;
 }
 /* Reference | custom scrollbar styles 
 https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_scrollbar
