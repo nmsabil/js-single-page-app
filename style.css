@@ -107,6 +107,8 @@
   font-weight: 600;
   text-align: center;
   padding-bottom: 5px;
+  cursor: pointer;
+  margin-right: 15px;
 }
 .painting-header {
   margin-left: 40px;
@@ -126,6 +128,7 @@
 }
 .painting-content {
   padding: 20px;
+  cursor: pointer;
 }
 .paintings {
   overflow: scroll;
@@ -145,6 +148,57 @@
   font-weight: 600;
 }
 
+.single-painting-view {
+  z-index: 999999;
+  display: flex;
+  top: 50%;
+  left: 50%;
+  height: 80vh;
+  width: 90%;
+  position: absolute;
+  background-color: var(--main-bg-color);
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--main-color);
+  border-radius: 5px;
+}
+
+.d-none {
+  display: none;
+}
+
+.pt-5 {
+  padding-top: 20px;
+}
+
+.mt-5 {
+  margin-top: 20px;
+}
+.single-painting-view .image {
+  width: 100%;
+}
+.single-painting-view .image img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+  padding: 20px;
+}
+.single-painting-view .description {
+  margin-top: 10px;
+  width: 100%;
+  padding: 20px;
+}
+.paintingDescription {
+  font-weight: 600;
+}
+.close-button {
+  padding: 5px;
+  background-color: var(--main-secondary-color);
+  color: white;
+  border-radius: 5px;
+}
+.close-button:hover {
+  background-color: var(--main-color);
+}
 /* Reference | custom scrollbar styles 
 https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_scrollbar
 */

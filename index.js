@@ -49,9 +49,23 @@ const fetchPainting = (galleryId) => {
       paintings.map((painting) => {
         const imgLink = `https://res.cloudinary.com/funwebdev/image/upload/w_100/art/paintings/${painting.ImageFileName}`;
 
-        const paintingDetails = `<div class='painting-details'>
+        const paintingDetails = `<div class='painting-details' onClick="fetchPaintingDetails(
+          ' ${painting.FirstName} ', 
+          ' ${painting.LastName} ',
+          ' ${painting.GalleryName} ',
+          ' ${painting.GalleryCity} ',
+          ' ${painting.MuseumLink} ',
+          ' ${painting.CopyrightText} ',
+          ' ${painting.YearOfWork} ',
+          ' ${painting.Width} ',
+          ' ${painting.Height} ',
+          ' ${painting.Medium} ',
+          ' ${painting.Description} ',
+          ' ${imgLink} ',
+        )">
   <div class='artist-img'>
-    <img
+  
+    <img 
       src= ${imgLink}
       alt=''
     />
@@ -62,5 +76,90 @@ const fetchPainting = (galleryId) => {
 </div>`;
         paintingContainer.innerHTML += paintingDetails;
       });
+
+      sorting();
     });
 };
+
+const fetchPaintingDetails = (
+  FirstName,
+  LastName,
+  GalleryName,
+  GalleryCity,
+  MuseumLink,
+  CopyrightText,
+  YearOfWork,
+  Width,
+  Height,
+  Medium,
+  Description,
+  imgLink
+) => {
+  const singlePageView = document.querySelector(".single-painting-view");
+
+  singlePageView.classList.remove("d-none");
+
+  const singlePaintingContent = ` <div class="image">
+  <img
+    src="${imgLink}"
+    alt=""
+  />
+</div>
+<div class="description">
+  <div class="paintingTitle"></div>
+  <div class="paintingFirstName"><b>FirstName:</b> ${FirstName}</div>
+  <div class="paintingLastName"><b>LastName:</b> ${LastName}</div>
+  <div class="paintingGalleryName">
+    <b>Gallery Name:</b> ${GalleryName}
+  </div>
+  <div class="paintingGalleryCity"><b>Gallery City:</b> ${GalleryCity}</div>
+  <div class="paintingMuseumLink">
+    <b>Museum Website:</b>
+    <a href="${MuseumLink}"
+      >${MuseumLink}</a
+    >
+  </div>
+  <div class="paintingCopyright"><b>Copyright:</b> ${CopyrightText}</div>
+  <div class="paintingYearOfWork"><b>Year Of Work:</b> ${YearOfWork}</div>
+  <div class="paintingWidth"><b>Width:</b> ${Width}</div>
+  <div class="paintingHeight"><b>Height:</b> ${Height}</div>
+  <div class="paintingMedium"><b>Medium</b> ${Medium}</div>
+  <div class="paintingDescription pt-5">
+    ${Description}
+  </div>`;
+
+  singlePageView.insertAdjacentHTML("afterbegin", singlePaintingContent);
+};
+
+const closeButton = document.querySelector(".close-button");
+
+closeButton.addEventListener("click", function () {
+  const singlePainting = document.querySelector(".single-painting-view");
+
+  singlePainting.classList.add("d-none");
+  singlePainting.innerHTML =
+    '<button class="close-button mt-5">Close Button</button>';
+});
+
+document.querySelector(".artist").addEventListener("click", sorting);
+document.querySelector(".title").addEventListener("click", sorting);
+document.querySelector(".Year").addEventListener("click", sorting);
+
+// Reference | https://medium.com/@cmstie/sorting-an-html-collection-with-javascript-2756d692b150
+function sorting() {
+  container = document.querySelector(".painting-content");
+  var divCard = container.children;
+  divCard = Array.prototype.slice.call(divCard);
+
+  divCard.sort(function (a, b) {
+    if (a.textContent < b.textContent) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
+  container.innerHTML = "";
+  for (var i = 0, l = divCard.length; i < l; i++) {
+    container.appendChild(divCard[i]);
+  }
+}
