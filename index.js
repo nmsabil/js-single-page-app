@@ -47,9 +47,10 @@ const fetchPainting = (galleryId) => {
     .then((response) => response.json())
     .then(function (paintings) {
       paintings.map((painting) => {
-        const imgLink = `https://res.cloudinary.com/funwebdev/image/upload/w_100/art/paintings/${painting.ImageFileName}`;
+        const imgLink = `https://res.cloudinary.com/funwebdev/image/upload/w_500/art/paintings/${painting.ImageFileName}`;
 
-        const paintingDetails = `<div class='painting-details' onClick="fetchPaintingDetails(
+        const paintingDetails = `<div class="painting-details" onclick="fetchPaintingDetails(
+          ' ${painting.Title} ', 
           ' ${painting.FirstName} ', 
           ' ${painting.LastName} ',
           ' ${painting.GalleryName} ',
@@ -60,11 +61,18 @@ const fetchPainting = (galleryId) => {
           ' ${painting.Width} ',
           ' ${painting.Height} ',
           ' ${painting.Medium} ',
-          ' ${painting.Description} ',
+          ' ${
+            typeof painting.Description === "object"
+              ? "Does not exist"
+              : painting.Description.replace(/'/g, "&rsquo; ").replace(
+                  /"/g,
+                  "&quot; "
+                )
+          } ',
           ' ${imgLink} ',
+          
         )">
   <div class='artist-img'>
-  
     <img 
       src= ${imgLink}
       alt=''
@@ -74,6 +82,7 @@ const fetchPainting = (galleryId) => {
   <div class='artist-title'>${painting.Title}</div>
   <div class='artist-year'>${painting.YearOfWork}</div>
 </div>`;
+
         paintingContainer.innerHTML += paintingDetails;
       });
 
@@ -82,6 +91,7 @@ const fetchPainting = (galleryId) => {
 };
 
 const fetchPaintingDetails = (
+  Title,
   FirstName,
   LastName,
   GalleryName,
@@ -106,7 +116,7 @@ const fetchPaintingDetails = (
   />
 </div>
 <div class="description">
-  <div class="paintingTitle"></div>
+  <div class="paintingTitle"><b>Painting Title:</b>${Title}</div>
   <div class="paintingFirstName"><b>FirstName:</b> ${FirstName}</div>
   <div class="paintingLastName"><b>LastName:</b> ${LastName}</div>
   <div class="paintingGalleryName">
@@ -125,26 +135,20 @@ const fetchPaintingDetails = (
   <div class="paintingHeight"><b>Height:</b> ${Height}</div>
   <div class="paintingMedium"><b>Medium</b> ${Medium}</div>
   <div class="paintingDescription pt-5">
-    ${Description}
-  </div>`;
-
+  <b>Description:</b> ${Description}
+  </div><button class="close-button mt-5">Close Button</button></div>`;
   singlePageView.insertAdjacentHTML("afterbegin", singlePaintingContent);
+  const closeButton = document.querySelector(".close-button");
+
+  closeButton.addEventListener("click", function () {
+    const singlePainting = document.querySelector(".single-painting-view");
+    singlePainting.innerHTML = "";
+    singlePainting.classList.add("d-none");
+  });
 };
-
-const closeButton = document.querySelector(".close-button");
-
-closeButton.addEventListener("click", function () {
-  const singlePainting = document.querySelector(".single-painting-view");
-
-  singlePainting.classList.add("d-none");
-  singlePainting.innerHTML =
-    '<button class="close-button mt-5">Close Button</button>';
-});
-
 document.querySelector(".artist").addEventListener("click", sorting);
 document.querySelector(".title").addEventListener("click", sorting);
 document.querySelector(".Year").addEventListener("click", sorting);
-
 // Reference | https://medium.com/@cmstie/sorting-an-html-collection-with-javascript-2756d692b150
 function sorting() {
   container = document.querySelector(".painting-content");

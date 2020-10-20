@@ -176,9 +176,12 @@
 .single-painting-view .image {
   width: 100%;
 }
+.single-painting-view * {
+  margin-bottom: 5px;
+}
 .single-painting-view .image img {
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
   padding: 20px;
 }
@@ -189,7 +192,12 @@
 }
 .paintingDescription {
   font-weight: 600;
+  overflow: scroll;
+  overflow-x: hidden;
+  height: 200px;
+  margin-top: 20px;
 }
+
 .close-button {
   padding: 5px;
   background-color: var(--main-secondary-color);
@@ -210,7 +218,7 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_scrollbar
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--main-bg-color);
 }
 
 /* Handle */
