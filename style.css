@@ -195,7 +195,7 @@
   font-weight: 600;
   overflow: scroll;
   overflow-x: hidden;
-  height: 200px;
+  max-height: 200px;
   margin-top: 20px;
 }
 

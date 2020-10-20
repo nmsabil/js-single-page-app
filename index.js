@@ -90,6 +90,27 @@ const fetchPainting = (galleryId) => {
     });
 };
 
+// Reference | https://medium.com/@cmstie/sorting-an-html-collection-with-javascript-2756d692b150
+
+function sorting() {
+  let container = document.querySelector(".painting-content");
+  let divCard = container.children;
+
+  divCard = Array.prototype.slice.call(divCard);
+
+  divCard.sort(function (a, b) {
+    if (a.textContent < b.textContent) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
+  container.innerHTML = "";
+  for (var i = 0, l = divCard.length; i < l; i++) {
+    container.appendChild(divCard[i]);
+  }
+}
+
 const fetchPaintingDetails = (
   Title,
   FirstName,
@@ -148,7 +169,7 @@ const fetchPaintingDetails = (
   const singlePainting = document.querySelector(".single-painting-view");
 
   const largerImageDisplay = (e) => {
-    largeImage.querySelector("img").src = e.target.src.replace(/500/g, "1000");
+    largeImage.querySelector("img").src = e.target.src.replace(/500/g, "600");
     largeImage.classList.remove("limage-d-none");
     singlePainting.classList.add("d-none");
   };
@@ -163,24 +184,6 @@ const fetchPaintingDetails = (
     .querySelector(".image")
     .addEventListener("click", largerImageDisplay);
 };
-document.querySelector(".artist").addEventListener("click", sorting);
-document.querySelector(".title").addEventListener("click", sorting);
-document.querySelector(".Year").addEventListener("click", sorting);
-// Reference | https://medium.com/@cmstie/sorting-an-html-collection-with-javascript-2756d692b150
-function sorting() {
-  container = document.querySelector(".painting-content");
-  var divCard = container.children;
-  divCard = Array.prototype.slice.call(divCard);
-
-  divCard.sort(function (a, b) {
-    if (a.textContent < b.textContent) {
-      return -1;
-    } else {
-      return 1;
-    }
-  });
-  container.innerHTML = "";
-  for (var i = 0, l = divCard.length; i < l; i++) {
-    container.appendChild(divCard[i]);
-  }
-}
+document.querySelector(".artist").addEventListener("click", sorting());
+document.querySelector(".title").addEventListener("click", sorting());
+document.querySelector(".Year").addEventListener("click", sorting());
